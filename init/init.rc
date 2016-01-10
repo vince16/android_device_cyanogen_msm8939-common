@@ -65,11 +65,11 @@ void cdma_properties(char default_cdma_sub[], char default_network[],
     property_set("gsm.sim.operator.alpha", operator_alpha);
     property_set("gsm.operator.alpha", operator_alpha);
 
-    #property_set("telephony.lteOnCdmaDevice", "1");
-    #property_set("ro.ril.svdo", "true");
+    //property_set("telephony.lteOnCdmaDevice", "1");
+    //property_set("ro.ril.svdo", "true");
     property_set("ro.ril.disable.fd.plmn.prefix", "23402,23410,23411,23420,23594,27202,27205");
     property_set("ro.ril.enable.sdr", "1");
-    #property_set("ro.ril.enable.gea3", "1");
+    //property_set("ro.ril.enable.gea3", "1");
     property_set("ro.ril.enable.a52", "0");
     property_set("ro.ril.enable.a53", "1");
     property_set("persist.radio.snapshot_enabled", "1");
@@ -89,98 +89,15 @@ void vendor_load_properties()
     if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX))
         return;
 
-    property_get("ro.boot.mid", bootmid);
-    property_get("ro.boot.carrier", carrier);
 
-    if (strstr(bootmid, "0P9C10000")) {
-        /* a5tl */
-        gsm_properties("9");
-        property_set("ro.build.fingerprint", "htc/htccn_chs_cmcc/htc_a5tl:4.4.2/KOT49H/391137.3:user/release-keys");
-        property_set("ro.build.description", "2.07.1403.3 CL391137 release-keys");
-        property_set("ro.product.model", "D816t");
-        property_set("ro.product.device", "a5tl");
-        property_set("ro.build.product", "a5tl");
-        property_set("ro.ril.hsdpa.category", "10");
-        property_set("ro.ril.hsxpa", "2");
-        property_set("ro.ril.enable.sdr", "0");
-        property_set("ro.ril.enable.a53", "1");
-        property_set("ro.ril.disable.fd.plmn.prefix", "23402,23410,23411,23420,27202");
-        property_set("ro.ril.oem.ecclist", "112,000,08,110,118,119,911,999,120,122");
-        property_set("ro.ril.set.mtusize", "1420");
-    } else if (strstr(bootmid, "0P9C30000")) {
-        /* a5chl */
-        cdma_properties("1", "8", "311490", "Virgin Mobile US");
-        property_set("ro.build.fingerprint", "htc/sprint_wwe_vm/htc_a5chl:5.0.2/LRX22G/510432.2:user/release-keys");
-        property_set("ro.build.description", "2.33.652.2 CL510432 release-keys");
-        property_set("ro.product.model", "710C");
-        property_set("ro.product.device", "a5chl");
-        property_set("ro.build.product", "a5chl");
-        property_set("ro.ril.oem.ecclist", "911");
-        property_set("ro.ril.set.mtusize", "1422");
-        property_set("ro.telephony.ril_class", "A5sprRIL");
-    } else if (strstr(bootmid, "0P9C50000")) {
-        /* a5dwg (chinese) */
-        dualsim_properties("dsds");
-        property_set("ro.build.fingerprint", "htc/htccn_chs_ct/htc_a5dwg:4.4.2/KOT49H/377271.2:user/release-keys");
-        property_set("ro.build.description", "2.06.1401.2 CL377271 release-keys");
-        property_set("ro.product.model", "D816d");
-        property_set("ro.product.device", "a5dwg");
-        property_set("ro.build.product", "a5dwg");
-        property_set("ro.telephony.default_network", "7");
-        property_set("ro.ril.enable.pre_r8fd", "1");
-        property_set("ro.ril.enable.sdr", "0");
-        property_set("ro.ril.enable.r8fd", "1");
-        property_set("ro.ril.disable.fd.plmn.prefix", "23402,23410,23411,23420,27202");
-        property_set("ro.ril.oem.ecclist", "110,112,119,120,911,999");
-        property_set("ro.ril.set.mtusize", "1420");
-    } else if (strstr(bootmid, "0P9C51000")) {
-        /* a5dwg (international) */
-        gsm_properties("7");
-        dualsim_properties("dsds");
-        property_set("ro.build.fingerprint", "htc/htc_asia_india/htc_a5dwg:4.4.2/KOT49H/334435.1:user/release-keys");
-        property_set("ro.build.description", "1.24.720.1 CL334435 release-keys");
-        property_set("ro.product.model", "Desire 816 dual sim");
-        property_set("ro.product.device", "a5dwg");
-        property_set("ro.build.product", "a5dwg");
-        property_set("ro.ril.hsdpa.category", "10");
-        property_set("ro.ril.air.enabled", "1");
-    } else if (strstr(bootmid, "0P9C70000")) {
-        /* a5dug */
-        gsm_properties("0");
-        dualsim_properties("dsda");
-        property_set("ro.product.device", "a5dug");
-        property_set("ro.build.product", "a5dug");
-        property_set("ro.ril.hsdpa.category", "24");
-        property_set("ro.ril.disable.cpc", "1");
-        property_set("ro.ril.enable.sdr", "0");
-        if (strstr(carrier, "HTC-Russia")) {
-            /* russian */
-            property_set("ro.build.fingerprint", "htc/htc_europe/htc_a5dug:4.4.2/KOT49H/372006.1:user/release-keys");
-            property_set("ro.build.description", "2.06.1402.2 CL377269 release-keys");
-            property_set("ro.product.model", "Desire 816 dual sim");
-            property_set("ro.ril.enable.a53", "1");
-        } else {
-            /* chinese */
-            property_set("ro.build.fingerprint", "htc/htccn_chs_cu/htc_a5dug:5.0.2/LRX22G/510432.1:user/release-keys");
-            property_set("ro.build.description", "2.34.1402.1 CL510432 release-keyss");
-            property_set("ro.product.model", "D816w");
-        }
-    } else {
-        /* a5ul */
-        gsm_properties("9");
-        property_set("ro.build.fingerprint", "htc/htc_asia_wwe/htc_a5ul:4.4.2/KOT49H/358649.1:user/release-keys");
-        property_set("ro.build.description", "1.49.707.1 CL358649 release-keys");
-        property_set("ro.product.model", "Desire 816");
-        property_set("ro.product.device", "a5ul");
-        property_set("ro.build.product", "a5ul");
-        property_set("ro.ril.hsdpa.category", "14");
-        property_set("ro.ril.air.enabled", "1");
-        property_set("ro.ril.enable.a53", "1");
-        property_set("persist.radio.jbims", "1");
-        property_set("ro.ril.enable.gea3", "1");
-        property_set("ro.ril.gsm.to.lte.blind.redir", "1");
-    }
-
-    property_get("ro.product.device", device);
-    ERROR("Found bootmid %s and carrier %s setting build properties for %s device\n", bootmid, carrier, device);
+   gsm_properties("9");
+   dualsim_properties("dsds");
+   property_set("ro.build.fingerprint", "htc/htc_asia_india/htc_a51dtul:5.0.2/LRX22G/624701.1:user/release-keys");
+   property_set("ro.build.description", "2.10.720.1 CL624701 release-keys");
+   property_set("ro.product.model", "Desire 820 dual sim");
+   property_set("ro.product.device", "a51dtul");
+   property_set("ro.build.product", "a51dtul");
+   property_set("ro.ril.hsdpa.category", "24");
+   property_set("ro.ril.air.enabled", "1");
+   
 }
